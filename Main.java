@@ -19,16 +19,21 @@ public class Main extends MouseInputAdapter implements ActionListener {
 	private static final Color extraColor = Color.DARK_GRAY;
 
 	private JFrame frame;
+	private Font fontTitle;
+	private Font fontContent;
+
 	private JTextField fillUser;
 	private JTextField fillPass;
-	
+
 	private JButton signUp;
 	private JButton signIn;
 	private JButton fillSignUp;
 	private JButton forgotPass;
+	private JButton checkEmail;
+
 	private JLabel title;
 	private JLabel userCheck;
-	
+
 	private JTextField newUser;
 	private JTextField newPass;
 	private JTextField newFirst;
@@ -47,8 +52,8 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		frame.setLayout(new BorderLayout());
 		frame.add(northPanel(), BorderLayout.NORTH);
 		frame.add(centerPanel(), BorderLayout.CENTER);
-		
-		database=new HashMap<>();
+
+		database = new HashMap<>();
 
 		frame.setVisible(true);
 	}
@@ -62,6 +67,9 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		title.setFont(font);
 		northPanel.add(title);
 
+		fontTitle = new Font("SansSerif", Font.BOLD, 25);
+		fontContent = new Font("SansSerif", Font.BOLD, 20);
+
 		return northPanel;
 	}
 
@@ -71,25 +79,25 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		centerPanel.setBackground(extraColor);
 
 		JPanel label = new JPanel();
-		Font font = new Font("SansSerif", Font.BOLD, 25);
+
 		JLabel title = new JLabel("Log In Here");
-		title.setFont(font);
+		title.setFont(fontTitle);
 		label.add(title);
 
 		JPanel signInPanel = new JPanel(new BorderLayout());
-		JPanel fillIn = new JPanel(new GridLayout(5,1));
+		JPanel fillIn = new JPanel(new GridLayout(5, 1));
 		JLabel user = new JLabel("Username");
-		user.setFont(font);
+		user.setFont(fontContent);
 		fillUser = new JTextField(15);
 		fillUser.setText("");
-		fillUser.setFont(font);
+		fillUser.setFont(fontContent);
 		JLabel pass = new JLabel("Password");
-		pass.setFont(font);
+		pass.setFont(fontContent);
 		fillPass = new JTextField(15);
 		fillPass.setText("");
-		fillPass.setFont(font);
+		fillPass.setFont(fontContent);
 		signIn = new JButton("Log In");
-		signIn.setFont(font);
+		signIn.setFont(fontContent);
 		fillIn.add(user);
 		fillIn.add(fillUser);
 		fillIn.add(pass);
@@ -99,21 +107,22 @@ public class Main extends MouseInputAdapter implements ActionListener {
 
 		JPanel signUpPanel = new JPanel(new FlowLayout());
 		signUp = new JButton("Sign Up");
-		signUp.setFont(font);
+		signUp.setFont(fontContent);
 		signUpPanel.add(signUp);
-		forgotPass= new JButton("Forgot your password?");
-		forgotPass.setFont(font);
+		forgotPass = new JButton("Forgot your password?");
+		forgotPass.setFont(fontContent);
 		signUpPanel.add(forgotPass);
 		signInPanel.add(signUpPanel, BorderLayout.SOUTH);
 
 		JPanel userPanel = new JPanel(new FlowLayout());
 		userCheck = new JLabel("Credit to Trang, Iris, Ruhee, Kirubel");
-		userCheck.setFont(font);
+		userCheck.setFont(fontContent);
 		userPanel.add(userCheck);
 		frame.add(userPanel, BorderLayout.SOUTH);
 
 		signIn.addActionListener(this);
 		signUp.addActionListener(this);
+		forgotPass.addActionListener(this);
 
 		centerPanel.add(label, BorderLayout.NORTH);
 		centerPanel.add(signInPanel, BorderLayout.CENTER);
@@ -131,6 +140,10 @@ public class Main extends MouseInputAdapter implements ActionListener {
 			signUp();
 		} else if (source == fillSignUp) {
 			assign();
+		} else if (source == forgotPass) {
+			forgot();
+		} else if (source == checkEmail) {
+
 		}
 	}
 
@@ -159,58 +172,55 @@ public class Main extends MouseInputAdapter implements ActionListener {
 
 		JPanel signUpPanel = new JPanel(new BorderLayout());
 		JLabel label = new JLabel("Sign Up Here");
-		Font font = new Font("SansSerif", Font.BOLD, 20);
-		label.setFont(font);
+		label.setFont(fontContent);
 		signUpPanel.add(label, BorderLayout.NORTH);
 		signUpPanel.add(southPanel(), BorderLayout.CENTER);
 		frame.add(signUpPanel);
 		frame.setContentPane(signUpPanel);
 		frame.setVisible(true);
 
-
 	}
 
-	//when press button
+	// when press button
 	public void assign() {
-			Person newPer = new Person(newUser.getText(), newPass.getText());
-			Customer newCus = new Customer(newUser.getText(), newPass.getText());
-			database.put(newCus, newPer);
-			System.out.println(newPer.toString());
-			System.out.println(newCus.toString());
-		
+		Person newPer = new Person(newUser.getText(), newPass.getText());
+		Customer newCus = new Customer(newUser.getText(), newPass.getText());
+		database.put(newCus, newPer);
+		System.out.println(newPer.toString());
+		System.out.println(newCus.toString());
+
 	}
 
 	// fill in details
 	public JPanel southPanel() {
 		JPanel southPanel = new JPanel(new BorderLayout());
 		southPanel.setBackground(extraColor);
-		JPanel fillIn = new JPanel(new GridLayout(12,1));
-		Font font = new Font("SansSerif", Font.BOLD, 20);
-		
+		JPanel fillIn = new JPanel(new GridLayout(12, 1));
+
 		JLabel user = new JLabel("Username");
-		user.setFont(font);
+		user.setFont(fontContent);
 		newUser = new JTextField(20);
 		newUser.setText("");
 		JLabel first = new JLabel("First Name");
-		first.setFont(font);
+		first.setFont(fontContent);
 		newFirst = new JTextField(20);
 		newFirst.setText("");
 		JLabel last = new JLabel("Last Name");
-		last.setFont(font);
+		last.setFont(fontContent);
 		newLast = new JTextField(20);
 		newLast.setText("");
 		JLabel email = new JLabel("Email");
-		email.setFont(font);
+		email.setFont(fontContent);
 		newEmail = new JTextField(20);
 		newEmail.setText("");
-		newEmail.setFont(font);
+		newEmail.setFont(fontContent);
 		JLabel pass = new JLabel("Password");
-		pass.setFont(font);
+		pass.setFont(fontContent);
 		newPass = new JTextField(20);
 		newPass.setText("");
 		fillSignUp = new JButton("Sign Up");
-		fillSignUp.setFont(font);
-		
+		fillSignUp.setFont(fontContent);
+
 		fillIn.add(user);
 		fillIn.add(newUser);
 		fillIn.add(pass);
@@ -222,10 +232,40 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		fillIn.add(email);
 		fillIn.add(newEmail);
 		fillIn.add(fillSignUp);
-		
+
 		southPanel.add(fillIn);
 		fillSignUp.addActionListener(this);
 		return southPanel;
+
+	}
+
+	public void forgot() {
+		frame.getContentPane().removeAll();
+		frame.revalidate();
+		frame.repaint();
+
+		JPanel forgot = new JPanel(new GridLayout(5, 1));
+		JLabel inform1 = new JLabel("Please type our email below.");
+		inform1.setFont(fontContent);
+		JLabel inform2 = new JLabel("We will send you an email to recover your password.");
+		inform2.setFont(fontContent);
+		JLabel email = new JLabel("Email");
+		email.setFont(fontContent);
+		JTextField fillForgotEmail = new JTextField("");
+		fillForgotEmail.setFont(fontContent);
+		checkEmail = new JButton("Send");
+		checkEmail.setFont(fontContent);
+
+		forgot.add(inform1);
+		forgot.add(inform2);
+		forgot.add(email);
+		forgot.add(fillForgotEmail);
+		forgot.add(checkEmail);
+
+		checkEmail.addActionListener(this);
+		frame.add(forgot);
+		frame.setContentPane(forgot);
+		frame.setVisible(true);
 
 	}
 
