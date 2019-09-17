@@ -21,11 +21,14 @@ public class Main extends MouseInputAdapter implements ActionListener {
 	private JFrame frame;
 	private JTextField fillUser;
 	private JTextField fillPass;
+	
 	private JButton signUp;
 	private JButton signIn;
 	private JButton fillSignUp;
+	private JButton forgotPass;
 	private JLabel title;
 	private JLabel userCheck;
+	
 	private JTextField newUser;
 	private JTextField newPass;
 	private JTextField newFirst;
@@ -74,15 +77,17 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		label.add(title);
 
 		JPanel signInPanel = new JPanel(new BorderLayout());
-		JPanel fillIn = new JPanel(new FlowLayout());
+		JPanel fillIn = new JPanel(new GridLayout(5,1));
 		JLabel user = new JLabel("Username");
 		user.setFont(font);
-		fillUser = new JTextField(20);
+		fillUser = new JTextField(15);
 		fillUser.setText("");
+		fillUser.setFont(font);
 		JLabel pass = new JLabel("Password");
 		pass.setFont(font);
-		fillPass = new JTextField(20);
+		fillPass = new JTextField(15);
 		fillPass.setText("");
+		fillPass.setFont(font);
 		signIn = new JButton("Log In");
 		signIn.setFont(font);
 		fillIn.add(user);
@@ -93,9 +98,12 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		signInPanel.add(fillIn, BorderLayout.CENTER);
 
 		JPanel signUpPanel = new JPanel(new FlowLayout());
-		signUp = new JButton("Sign Up Here");
+		signUp = new JButton("Sign Up");
 		signUp.setFont(font);
 		signUpPanel.add(signUp);
+		forgotPass= new JButton("Forgot your password?");
+		forgotPass.setFont(font);
+		signUpPanel.add(forgotPass);
 		signInPanel.add(signUpPanel, BorderLayout.SOUTH);
 
 		JPanel userPanel = new JPanel(new FlowLayout());
@@ -150,7 +158,7 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		frame.repaint();
 
 		JPanel signUpPanel = new JPanel(new BorderLayout());
-		JLabel label = new JLabel("Sign Up");
+		JLabel label = new JLabel("Sign Up Here");
 		Font font = new Font("SansSerif", Font.BOLD, 20);
 		label.setFont(font);
 		signUpPanel.add(label, BorderLayout.NORTH);
@@ -176,7 +184,7 @@ public class Main extends MouseInputAdapter implements ActionListener {
 	public JPanel southPanel() {
 		JPanel southPanel = new JPanel(new BorderLayout());
 		southPanel.setBackground(extraColor);
-		JPanel fillIn = new JPanel(new FlowLayout());
+		JPanel fillIn = new JPanel(new GridLayout(12,1));
 		Font font = new Font("SansSerif", Font.BOLD, 20);
 		
 		JLabel user = new JLabel("Username");
@@ -192,9 +200,10 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		newLast = new JTextField(20);
 		newLast.setText("");
 		JLabel email = new JLabel("Email");
-		last.setFont(font);
+		email.setFont(font);
 		newEmail = new JTextField(20);
 		newEmail.setText("");
+		newEmail.setFont(font);
 		JLabel pass = new JLabel("Password");
 		pass.setFont(font);
 		newPass = new JTextField(20);
@@ -212,7 +221,7 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		fillIn.add(newLast);
 		fillIn.add(email);
 		fillIn.add(newEmail);
-		fillIn.add(signIn);
+		fillIn.add(fillSignUp);
 		
 		southPanel.add(fillIn);
 		fillSignUp.addActionListener(this);
