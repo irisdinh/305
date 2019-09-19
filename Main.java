@@ -6,10 +6,18 @@ import java.util.ArrayList;
 import java.util.*;
 import java.util.Collections;
 import javax.swing.event.*;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Main extends MouseInputAdapter implements ActionListener {
 	public static void main(String[] args) {
 		Main gui = new Main();
+		Customer oneC = new Customer("Anna", "123456");
+		Person oneP = new Person("Anna", "123456");
+		database.put(oneC, oneP);
+		System.out.println(database);
 
 	}
 
@@ -154,12 +162,17 @@ public class Main extends MouseInputAdapter implements ActionListener {
 		} else {
 			String temPass = fillPass.getText();
 			String temUser = fillUser.getText();
-			Customer tem = new Customer(temUser, temPass);
-			if (!tem.signIn(temUser, temPass)) {
-				userCheck.setText("Your username and password may wrong. Please type again.");
-			} else {
-				main();
-			}
+			System.out.println(fillPass);
+			System.out.println(fillUser);
+			Customer tem = new Customer(temPass, temUser);
+//			for (Customer name : database.keySet()) {
+//				if (!name.signIn(tem)) {
+//					userCheck.setText("Your username and password may be wrong. Please type again.");
+//				} else {
+					main();
+//				}
+
+//			}
 
 		}
 	}
@@ -271,6 +284,36 @@ public class Main extends MouseInputAdapter implements ActionListener {
 
 	// main page
 	public void main() {
+		frame.getContentPane().removeAll();
+		frame.revalidate();
+		frame.repaint();
+		
+		JPanel main=new JPanel(new BorderLayout());
+		JPanel title=new JPanel(new GridLayout(1,2));
+		JLabel name=new JLabel("Anna");
+		JLabel balance=new JLabel("$1000");
+		name.setFont(fontContent);
+		balance.setFont(fontContent);
+		title.add(name);
+		title.add(balance);
+		
+		JTabbedPane content = new JTabbedPane();
+		content.setTabLayoutPolicy(1);
+		
+		ImageIcon finalIcon = new ImageIcon("1.png");
+		JPanel oneP=new JPanel();
+		content.addTab("Main Page", finalIcon, oneP, "See your current planner");
+		JPanel twoP=new JPanel();
+		content.addTab("Monthly Trend", finalIcon, twoP, "See your monthly spending");
+		JPanel threeP=new JPanel();
+		content.addTab("Yearly Trend", finalIcon, threeP, "See your yearly spending");
 
+		frame.add(main);
+		main.add(title, BorderLayout.NORTH);
+		main.add(content, BorderLayout.CENTER);
+		
+		frame.setContentPane(main);
+		frame.setVisible(true);
+		
 	}
 }
